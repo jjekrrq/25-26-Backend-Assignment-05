@@ -1,5 +1,6 @@
 package com.example.seungchang.global.oauth;
 
+import com.example.seungchang.app.domain.auth.AuthProvider;
 import com.example.seungchang.app.dto.auth.LoginResponseDto;
 import com.example.seungchang.app.service.RefreshTokenService;
 import com.example.seungchang.global.code.SuccessCode;
@@ -38,6 +39,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String email = oAuth2User.getAttribute("email");
         String name = oAuth2User.getAttribute("name");
         String roleName = (String) oAuth2User.getAttribute("role"); // "USER" or "ADMIN"
+        AuthProvider authProvider =  oAuth2User.getAttribute("provider");
 
         // ✅ JWT 발급 (기존 로그인 로직과 동일한 형태)
         String accessToken = tokenProvider.createAccessToken(userId, roleName);
@@ -54,6 +56,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
                 .email(email)
                 .name(name)
                 .role("ROLE_" + roleName) // 기존 로그인 응답과 포맷 맞춤
+                .authProvider(authProvider)
                 .build();
 
         // ✅ ApiResponseTemplate 형식에 맞춰 JSON 응답

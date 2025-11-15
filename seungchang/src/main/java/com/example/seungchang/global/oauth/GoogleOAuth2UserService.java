@@ -62,6 +62,7 @@ public class GoogleOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         Map<String, Object> attributes = new HashMap<>(oAuth2User.getAttributes());
         attributes.put("userId", user.getId());
         attributes.put("role", user.getRole().name()); // "USER", "ADMIN"
+        attributes.put("provider", user.getProvider()); // "GOOGLE", "KAKAO"
 
         // key 를 "email" 로 사용 (getName() 할 때 사용)
         return new DefaultOAuth2User(authorities, attributes, "email");

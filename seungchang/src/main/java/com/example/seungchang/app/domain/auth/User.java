@@ -1,5 +1,6 @@
 package com.example.seungchang.app.domain.auth;
 
+import com.example.seungchang.app.dto.auth.UserSignUpRequestDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -60,4 +61,20 @@ public class User {
                 .providerId(providerId)
                 .build();
     }
+
+    public static User createNotSocialUser(
+            String email,
+            String name,
+            String encodedPassword  // 이미 인코딩된 비밀번호를 받음
+    ){
+        return User.builder()
+                .email(email)
+                .password(encodedPassword)  // 암호화된 값 넣기
+                .name(name)
+                .role(Role.USER)
+                .provider(AuthProvider.LOCAL)
+                .providerId(email)
+                .build();
+    }
+
 }

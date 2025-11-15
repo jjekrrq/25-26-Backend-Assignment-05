@@ -28,12 +28,11 @@ public class UserService {
             throw new AuthException(ErrorCode.ALREADY_EXIST_USER);
         }
 
-        User user = User.builder()
-                .email(dto.getEmail())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .name(dto.getName())
-                .role(Role.USER)
-                .build();
+        User user = User.createNotSocialUser(
+                dto.getEmail(),
+                dto.getName(),
+                passwordEncoder.encode(dto.getPassword())
+        );
 
         userRepository.save(user);
     }
@@ -60,6 +59,7 @@ public class UserService {
                 .email(user.getEmail())
                 .name(user.getName())
                 .role("ROLE_" + user.getRole().name())
+                .authProvider(user.getProvider())
                 .build();
     }
 

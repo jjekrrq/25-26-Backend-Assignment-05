@@ -1,5 +1,6 @@
 package com.example.seungchang.app.dto.auth;
 
+import com.example.seungchang.app.domain.auth.AuthProvider;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,4 +18,5 @@ public class LoginResponseDto {
     private String email;
     private String name;
     private String role;
+    private AuthProvider authProvider;
 }
