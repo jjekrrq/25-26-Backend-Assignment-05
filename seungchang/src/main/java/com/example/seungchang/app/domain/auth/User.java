@@ -62,6 +62,7 @@ public class User {
                 .build();
     }
 
+    // 일반 로그인 정적 팩토리 메서드
     public static User createNotSocialUser(
             String email,
             String name,

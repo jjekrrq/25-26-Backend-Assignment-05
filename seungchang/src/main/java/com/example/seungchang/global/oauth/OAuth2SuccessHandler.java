@@ -41,7 +41,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String roleName = (String) oAuth2User.getAttribute("role"); // "USER" or "ADMIN"
         AuthProvider authProvider =  oAuth2User.getAttribute("provider");
 
-        // ✅ JWT 발급 (기존 로그인 로직과 동일한 형태)
+        // ✅ JWT 발급
         String accessToken = tokenProvider.createAccessToken(userId, roleName);
         String refreshToken = tokenProvider.createRefreshToken(userId);
 
