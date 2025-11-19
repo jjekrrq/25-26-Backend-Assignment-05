@@ -8,8 +8,8 @@ import lombok.Getter;
 public class LoginRequestDto {
     @Email
     @NotBlank
-    private String email;
+    private static String email;
 
     @NotBlank
-    private String password;
+    private static String password;
 }
