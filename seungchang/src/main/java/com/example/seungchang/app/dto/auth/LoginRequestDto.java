@@ -3,13 +3,15 @@ package com.example.seungchang.app.dto.auth;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class LoginRequestDto {
     @Email
     @NotBlank
-    private static String email;
+    private String email;
 
     @NotBlank
-    private static String password;
+    private String password;
 }

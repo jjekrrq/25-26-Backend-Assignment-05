@@ -1,5 +1,6 @@
 package com.example.seungchang.app.mapper;
 
+import com.example.seungchang.app.domain.service.Food;
 import com.example.seungchang.app.domain.service.Restaurant;
 import com.example.seungchang.app.domain.auth.User;
 import com.example.seungchang.app.dto.service.FoodResponseDto;
@@ -9,6 +10,8 @@ import com.example.seungchang.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -31,24 +34,32 @@ public class RestaurantMapper {
         return restaurant;
     }
 
-    public RestaurantResponseDto toDto(Restaurant restaurant){
+    public RestaurantResponseDto toDto(Restaurant restaurant) {
+        List<FoodResponseDto> foodDtos = toFoodDtoList(restaurant);
+
         return RestaurantResponseDto.builder()
                 .id(restaurant.getId())
                 .restaurantName(restaurant.getRestaurantName())
                 .bossName(restaurant.getBossName())
-                .countOfFood(restaurant.getFoodList().size())
-                .foodList(
-                        restaurant.getFoodList().stream()
-                                .map(food -> FoodResponseDto.builder()
-                                        .id(food.getId())
-                                        .foodName(food.getFoodName())
-                                        .kcal(food.getKcal())
-                                        .amountOfSelling(food.getAmountOfSelling())
-                                        .restaurantId(restaurant.getId())
-                                        .restaurantName(restaurant.getRestaurantName())
-                                        .build()
-                                ).toList()
-                )
+                .countOfFood(foodDtos.size())
+                .foodList(foodDtos)
+                .build();
+    }
+
+    private List<FoodResponseDto> toFoodDtoList(Restaurant restaurant) {
+        return restaurant.getFoodList().stream()
+                .map(food -> toFoodDto(food, restaurant))
+                .toList();
+    }
+
+    private FoodResponseDto toFoodDto(Food food, Restaurant restaurant) {
+        return FoodResponseDto.builder()
+                .id(food.getId())
+                .foodName(food.getFoodName())
+                .kcal(food.getKcal())
+                .amountOfSelling(food.getAmountOfSelling())
+                .restaurantId(restaurant.getId())
+                .restaurantName(restaurant.getRestaurantName())
                 .build();
     }
 }

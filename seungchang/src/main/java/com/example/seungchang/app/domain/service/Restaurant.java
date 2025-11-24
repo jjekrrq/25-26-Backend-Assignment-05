@@ -18,7 +18,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Restaurant {
@@ -38,9 +37,11 @@ public class Restaurant {
 
     // 팩토리 메서드 (정적 생성자)
     public static Restaurant create(String restaurantName, String bossName) {
-        return new Restaurant(restaurantName, bossName);
+        return Restaurant.builder()
+                .restaurantName(restaurantName)
+                .bossName(bossName)
+                .build();
     }
-
 
     public void update(String restaurantName){
         this.restaurantName = restaurantName;

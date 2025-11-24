@@ -28,14 +28,14 @@ public class RestaurantService {
     }
 
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<RestaurantResponseDto> getAllRestaurants(){
         return restaurantRepository.findAll().stream()
                 .map(restaurantMapper::toDto)
                 .toList();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public RestaurantResponseDto getOneRestaurant(Long id){
         Restaurant restaurant = restaurantRepository.findById(id)
                 .orElseThrow(() -> new RestaurantNotFoundException(id));
