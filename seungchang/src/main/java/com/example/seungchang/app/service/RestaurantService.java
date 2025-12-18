@@ -1,15 +1,12 @@
 package com.example.seungchang.app.service;
 
 import com.example.seungchang.app.domain.service.Restaurant;
-import com.example.seungchang.app.domain.auth.User;
 import com.example.seungchang.app.dto.service.RestaurantRequestDto;
 import com.example.seungchang.app.dto.service.RestaurantResponseDto;
 import com.example.seungchang.app.mapper.RestaurantMapper;
 import com.example.seungchang.app.repository.RestaurantRepository;
-import com.example.seungchang.app.repository.UserRepository;
 import com.example.seungchang.global.exception.RestaurantNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
